@@ -1,5 +1,31 @@
 import Image from 'next/image';
 import React from 'react';
+import Marquee from '../ui/marquee';
+
+
+
+const ReviewCard = ({
+  img,
+  alt,
+  index
+}: {
+  img: string;
+  alt: string;
+  index: number;
+}) => {
+  return (
+    <figure>
+      <Image
+        src={img}
+        alt={alt}
+        width={0}
+        height={0}
+        className={`opacity-0 animate-fadeIn w-[75%]`}
+        style={{ animationDelay: `${index * 0.2}s` }}
+      />
+    </figure>
+  );
+};
 
 const Footer = () => {
   const techLogos = [
@@ -13,21 +39,18 @@ const Footer = () => {
     { src: '/images/django.svg', alt: 'Django logo' },
   ];
 
+
+
   return (
     <footer className="flex justify-center items-center text-white absolute bottom-0 w-full h-24 sm:h-36 bg-[#26212B] font-sans">
       <div className="flex justify-around items-center w-full px-8 sm:px-32">
-        {techLogos.map((logo, index) => (
-          <div key={index} className="transition-transform duration-300 transform hover:-translate-y-4 hover:scale-125">
-            <Image
-              src={logo.src}
-              alt={logo.alt}
-              width={0}
-              height={0}
-              className={`opacity-0 animate-fadeIn w-[75%]`}
-              style={{ animationDelay: `${index * 0.2}s` }}
-            />
-          </div>
-        ))}
+        <Marquee pauseOnHover className="[--duration:20s] border  space-x-48">
+          {techLogos.map((logo, index) => (
+            <div key={index} className="transition-transform duration-300 border transform hover:-translate-y-4 hover:scale-125">
+              <ReviewCard img={logo.src} alt={logo.alt} index={index} />
+            </div>
+          ))}
+        </Marquee>
       </div>
       <p className="absolute right-0 bottom-0 text-sm p-2 opacity-10">
         © 2024 - Built with Next.js by ibenmain
